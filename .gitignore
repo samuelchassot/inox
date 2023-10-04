@@ -37,6 +37,7 @@ Inox.iml
 #vscode and metals
 .vscode/
 .metals/
+*.semanticdb
 
 #scripts
 out-classes
