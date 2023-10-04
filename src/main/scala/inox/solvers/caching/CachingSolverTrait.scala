@@ -2,23 +2,11 @@ package inox
 package solvers
 package cachinng
 
-class CachingSolver private (
-    override val context: inox.Context
-)(protected val underlying: Solver)
-    extends Solver {
-  override val program: underlying.program.type = underlying.program
-
+trait CachingSolverT extends Solver {
   import program.trees._
   import SolverResponses._
 
-  def this(
-      underlying: Solver
-  ) =
-    this(underlying.context)(underlying)
-
-  def name: String = "Caching:" + underlying.name
-
-  def declare(vd: ValDef) = underlying.declare(vd)
+  override def name: String = "Caching:" + super.name
 
   def assertCnstr(expr: Expr) = underlying.assertCnstr(expr)
 
