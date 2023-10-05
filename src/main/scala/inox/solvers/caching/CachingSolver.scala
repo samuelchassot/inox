@@ -3,18 +3,21 @@ package solvers
 package cachinng
 
 class CachingSolver private (
+    override val program: Program,
     override val context: inox.Context
-)(protected val underlying: Solver)
-    extends Solver {
-  override val program: underlying.program.type = underlying.program
+)(protected val underlying: Solver {
+  val program: This.program.type
+}) extends Solver {
+  override val program: this.program.type
 
   import program.trees._
   import SolverResponses._
 
   def this(
-      underlying: Solver
+      p: Program,
+      underlying: Solver { val program: this.program.type }
   ) =
-    this(underlying.context)(underlying)
+    this(underlying.program, underlying.context)(underlying)
 
   var cache: Cache = MapCache()
 
