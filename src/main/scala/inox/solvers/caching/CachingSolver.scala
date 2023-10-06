@@ -1,23 +1,22 @@
 package inox
 package solvers
-package cachinng
+package caching
 
 class CachingSolver private (
     override val program: Program,
     override val context: inox.Context
-)(protected val underlying: Solver {
-  val program: This.program.type
+)(val prog: program.type)(protected val underlying: Solver {
+  val program: prog.type
 }) extends Solver {
-  override val program: this.program.type
 
   import program.trees._
   import SolverResponses._
 
   def this(
       p: Program,
-      underlying: Solver { val program: this.program.type }
+      underlying: Solver { val program: p.type }
   ) =
-    this(underlying.program, underlying.context)(underlying)
+    this(underlying.program, underlying.context)(underlying.program)(underlying)
 
   var cache: Cache = MapCache()
 
