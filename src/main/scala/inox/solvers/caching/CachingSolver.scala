@@ -5,7 +5,9 @@ package caching
 class CachingSolver private (
     override val program: Program,
     override val context: inox.Context
-)(val prog: program.type)(protected val underlying: Solver {
+)
+// Prog is an alias for `program`, as we cannot use `program` within `underlying`
+(val prog: program.type)(protected val underlying: Solver {
   val program: prog.type
 }) extends Solver {
 
