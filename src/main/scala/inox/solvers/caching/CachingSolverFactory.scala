@@ -18,6 +18,6 @@ object CachingSolverFactory {
         extends CachingSolver(p, sf.getNewSolver())
         with TimeoutSolver
 
-    SolverFactory.create(p)("E:" + sf.name, () => new Impl(p))
+    SolverFactory.create(p)("Caching:" + sf.name, () => new Impl(p))
   }
 }
