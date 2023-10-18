@@ -53,11 +53,11 @@ class SemanticsSuite extends AnyFunSuite {
       native: Boolean = false
   ): Boolean = {
     val solvers = ctx.options.findOptionOrDefault(optSelectedSolvers)
-    (!princess || solvers != Set("princess")) &&
-    (!unroll || solvers != Set("unrollz3")) &&
-    (!z3 || solvers != Set("smt-z3")) &&
-    (!native || solvers != Set("nativez3")) &&
-    (!cvc4 || solvers != Set("smt-cvc4"))
+    (!princess || (solvers != Set("princess") && solvers != Set("caching:princess"))) &&
+    (!unroll || (solvers != Set("unrollz3") && solvers != Set("caching:unrollz3"))) &&
+    (!z3 || (solvers != Set("smt-z3") && solvers != Set("caching:smt-z3"))) &&
+    (!native || (solvers != Set("nativez3") && solvers != Set("caching:nativez3"))) &&
+    (!cvc4 || (solvers != Set("smt-cvc4") && solvers != Set("caching:smt-cvc4")))
   }
 
   protected def check(s: SimpleSolverAPI { val program: InoxProgram }, e: Expr, expected: Expr) = {
