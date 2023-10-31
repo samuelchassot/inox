@@ -166,7 +166,8 @@ trait SimplifierWithPC extends Transformer { self =>
       }
 
     case s @ ADTSelector(e, sel) =>
-      val (re, pe) = simplify(path expand e, path)
+      val (re0, pe) = simplify(e, path)
+      val re = path expand re0
 
       if (isConstructor(re, s.constructor.id, path) == Some(true)) {
         val cons = s.constructor
