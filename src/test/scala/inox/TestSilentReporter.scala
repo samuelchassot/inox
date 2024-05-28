@@ -4,7 +4,7 @@ package inox
 
 import inox.utils.Position.smartPos
 
-class TestSilentReporter extends DefaultReporter(Set()) {
+class TestSilentReporter(val debugSectionsParam: Set[DebugSection] = Set()) extends DefaultReporter(debugSectionsParam) {
   var lastErrors: List[String] = Nil
 
   override def clearProgress(): Unit = ()

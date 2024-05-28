@@ -2,6 +2,8 @@
 
 package inox
 
+import inox.solvers.smtlib.DebugSectionSMT
+
 object TestContext {
 
   def apply(options: Options) = {
