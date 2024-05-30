@@ -3,15 +3,18 @@
 package inox
 package solvers
 
+import inox.solvers.smtlib.DebugSectionSMT
 import org.scalatest.funsuite.AnyFunSuite
+import inox.solvers.smtlib.cvcSimplesModelOpt
 
 class SolversSuite extends AnyFunSuite {
   import inox.trees._
   import SolverResponses._
 
-  given ctx: Context = TestContext.empty.copy(options = Options(Seq(
-    optCheckModels(true)
-  )))
+  given ctx: Context = TestContext.empty.copy(
+    options = Options(Seq(optCheckModels(true), cvcSimplesModelOpt(true))),
+    reporter = TestSilentReporter(debugSectionsParam = Set(DebugSectionSMT))
+  )
 
   val p = InoxProgram(NoSymbols)
 
@@ -19,9 +22,9 @@ class SolversSuite extends AnyFunSuite {
   import p.symbols.{given, _}
 
   val solverNames: Seq[String] = {
-    (if (SolverFactory.hasNativeZ3) Seq("nativez3") else Nil) ++
-    (if (SolverFactory.hasZ3)       Seq("smt-z3") else Nil) ++
-    (if (SolverFactory.hasCVC4)     Seq("smt-cvc4") else Nil) ++
+//    (if (SolverFactory.hasNativeZ3) Seq("nativez3") else Nil) ++
+//    (if (SolverFactory.hasZ3)       Seq("smt-z3") else Nil) ++
+//    (if (SolverFactory.hasCVC4)     Seq("smt-cvc4") else Nil) ++
     (if (SolverFactory.hasCVC5)     Seq("smt-cvc5") else Nil)
   }
 

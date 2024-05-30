@@ -654,7 +654,7 @@ abstract class AbstractUnrollingSolver private
 
       def apply[M <: Model, A <: Assumptions](resp: config.Response[M, A]): CheckResult = resp match {
         case SatWithModel(_) if !checkModels && abort => new CheckResult(config cast Unknown)
-        case _ => new CheckResult(resp)
+        case _ => new CheckResult(resp) // SAM DEBUG Here we return unknown. Checkmodels = true, abort = false
       }
 
       def unapply(res: CheckResult): Option[config.Response[Model, Assumptions]] = Some(res.response)
@@ -773,7 +773,7 @@ abstract class AbstractUnrollingSolver private
                 reporter.error("  " + model.asString.replaceAll("\n", "\n  "))
                 reporter.error("for formula " + andJoin(assumptionsSeq ++ constraints).asString)
               }
-              unknown
+              unknown // SAM DEBUG Here it returns
             } else if (templates.hasAxioms) {
               val wrapped = wrapModel(umodel)
               val optError = templates.getAxioms.view.flatMap { q =>
